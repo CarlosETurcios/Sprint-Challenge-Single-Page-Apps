@@ -10,7 +10,7 @@ import {
   Container,
   Row
 } from 'reactstrap';
-import { green } from 'ansi-colors';
+
 export default function CharacterList() {
   // TODO: Add useState to track data from useEffect
   const [rmCharacter, setRmCharacter] = useState([]);

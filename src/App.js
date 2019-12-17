@@ -5,6 +5,7 @@ import WelcomePage from './components/WelcomePage';
 import { Route } from 'react-router-dom';
 import { Container, Row, Card } from 'reactstrap';
 import SearchForm from './components/SearchForm.js';
+import CharacterCard from './components/CharacterCard.js';
 
 export default function App() {
   return (
