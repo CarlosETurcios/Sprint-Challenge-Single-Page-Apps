@@ -1,51 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import CharacterDetails from './CharacterList';
-import CharacterList from './CharacterList';
+import React, { useState } from 'react';
 
 function SearchForm(props) {
-  const [characters, setCharacter] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const handleChange = event => {
+  const [searchTearm, setSearchTerm] = useState();
+  const handleChanges = event => {
     setSearchTerm(event.target.value);
   };
 
-  useEffect(() => {
-    axios
+  const submitHandler = event => {
+    event.preventDefault();
 
-      .get('https://rickandmortyapi.com/documentation/characters')
-      .then(data => {
-        console.log(data);
-        setCharacter(data.data.results);
-      })
-      .catch(error => {
-        console.log("There's an error", error);
-      });
-
-    const results = characters.filter(character => {
-      return character.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const filter = props.character.filter(character => {
+      return character.name.indexOf(searchTearm) !== -1;
     });
-    setSearchTerm(results);
-  }, [searchTerm]);
+    props.searching(filter);
+  };
 
   return (
-    <section className='search-form'>
-      <form>
-        <label htmlFor='title'>
-          <input
-            id='title'
-            type='text'
-            name='title'
-            onChange={handleChange}
-            value={searchTerm}
-            placeholder='Search'
-          />
-        </label>
+    <section>
+      <form onSubmit={submitHandler}>
+        <input
+          onChange={handleChanges}
+          type='text'
+          name='character'
+          id='character'
+          placeholder='Search'
+        />
       </form>
-      {characters.map(char => (
-        <CharacterDetails />
-      ))}
     </section>
   );
 }
